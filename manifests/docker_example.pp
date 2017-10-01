@@ -2,6 +2,12 @@ class puppetconf::docker_examples{
 
  include 'docker'
 
+# docker::registry { 'https://index.docker.io/v1/':
+#   username => ‘’,
+#   password => ‘password’,
+#   email    => ‘tricia.radcliffe@gmail.com’,
+# }
+
  docker::image { 'ubuntu':
      image_tag => 'trusty',
  }
