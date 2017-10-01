@@ -1,4 +1,4 @@
-class puppetconf::docker_examples{
+class puppetconf::docker_examples {
 
  include 'docker'
 
