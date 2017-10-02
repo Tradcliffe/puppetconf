@@ -1,0 +1,32 @@
+Service {
+  provider => dummy
+}
+
+class { 'nginx': }
+
+nginx::resource::vhost { 'default':
+  www_root => '/var/www/html',
+}
+
+#file { '/var/www/html/index.html':
+#  ensure  => present,
+#  content => 'Hello Puppet and Docker',
+#}
+
+file { 'index.html':
+  ensure  => file,
+  path    => '/var/www/html',
+  source  => 'puppet:///modules/image_build/index.html',
+}
+
+#file { 'puppet-docker.png':
+#  path           => '/var/www/html/puppet-docker.png',
+#  ensure  => present,
+#  source  => 'file://etc/puppetlabs/code/environments/production/modules/image_build/examples/nginx/template/puppet-docker.png',
+#}
+
+exec { 'Disable Nginx daemon mode':
+  path    => '/bin',
+  command => 'echo "daemon off;" >> /etc/nginx/nginx.conf',
+  unless  => 'grep "daemon off" /etc/nginx/nginx.conf',
+}
